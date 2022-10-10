@@ -31,4 +31,10 @@ export class UserController {
   delete(@Payload() id: string) {
     return this.userService.delete(id);
   }
+
+  @MessagePattern(UserMSG.VALID_USER)
+  async validUser(@Payload() payload: any) {
+    const data = await this.userService.findOne(payload);
+    return { message: 'User Validated', data };
+  }
 }
